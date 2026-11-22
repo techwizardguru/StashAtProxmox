@@ -9,6 +9,8 @@ Dieses Repository enthält ein Community-Scripts-artiges Setup für **StashApp**
 - `install/stashapp-install.sh` — ursprüngliches Installationsskript im Container
 - `install/stashapp-install-standalone.sh` — **repariertes standalone Installationsskript** im Container
 
+> **Installer derzeit defekt:** Upstream hat `misc/build.func` entfernt. Nicht ausführen und keine bestehenden Container löschen, bis er repariert ist.
+
 ## Empfohlener Start
 
 Für neue Installationen oder einen Neuaufbau des Containers solltest du jetzt **das reparierte CT-Skript** verwenden:
@@ -17,12 +19,15 @@ Für neue Installationen oder einen Neuaufbau des Containers solltest du jetzt *
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Nanja-at-web/StashAtProxmox/main/ct/stashapp-fixed.sh)"
 ```
 
-Wenn bereits ein fehlerhaft erstellter Container existiert, ist der saubere Weg:
+Wenn bereits ein fehlerhaft erstellter Container existiert:
+
+> **Achtung:** `pct destroy` löscht den Container unwiderruflich. Prüfe die ID mit `pct list` und `pct config <CTID>` und sichere vorher deine Daten.
+
+**Erst wenn der Installer repariert ist:**
 
 ```bash
-pct stop 101
-pct destroy 101
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/Nanja-at-web/StashAtProxmox/main/ct/stashapp-fixed.sh)"
+pct stop <CTID>
+pct destroy <CTID>
 ```
 
 ## Was das reparierte Setup macht
